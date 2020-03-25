@@ -4,6 +4,7 @@ import sys, os, math, random, argparse, itertools, time
 import scipy as sp
 import util
 import wrightfisher as wf
+import disordered_library
 
 # A more detailed example of how the Wright-Fisher simulation can be used
 # Run with:
@@ -24,6 +25,22 @@ class MySequenceFitnessEvaluator(wf.SequenceFitnessEvaluator):
 		epsilon = 0.001
 		fit = (seq.count('E') + seq.count('K') + epsilon)/float(len(seq))
 		return fit
+
+class RgFitnessEvaluator(wf.SequenceFitnessEvaluator):
+	"""
+	A fitness function that calculates the kappa of a sequence, and uses that to estimate an Rg by drawing from a distribution. The Rg is then used to determine the fitness of the sequence.
+	Or maybe just do this directly on kappa?
+	1. Define a relationship between Rg and kappa (numeric, w noise)
+	2. Write out fitness function
+	3. evolve for extended or compacted
+	"""
+	def fitness(self, organism, population):
+		seq = organism.sequence
+		# Make a mapping between sequence and Rg here? Or estimate directly?
+		seq_kappa = kappa(seq)
+		seq_Rg = fxn(kappa) # Draw from a random distribution
+
+
 
 if __name__=='__main__':
 	parser = argparse.ArgumentParser(description="Example use of Wright-Fisher evolution")
