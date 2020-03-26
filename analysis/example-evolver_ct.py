@@ -37,8 +37,9 @@ class RgFitnessEvaluator(wf.SequenceFitnessEvaluator):
 	def fitness(self, organism, population):
 		seq = organism.sequence
 		# Make a mapping between sequence and Rg here? Or estimate directly?
-		seq_kappa = kappa(seq)
-		seq_Rg = fxn(kappa) # Draw from a random distribution
+		seq_Rg = simulate(sequence)
+		fit = seq_Rg
+		return fit
 
 
 
